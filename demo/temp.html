@@ -1,0 +1,58 @@
+<div id="" v-finger:swipe="swipe">
+        <!-- 月显示日期 -->
+        <div class="month" v-show="isMonth">
+          <ul>
+            <li class="arrow" @click="pickPreMonth">❮</li>
+            <li class="year-month">
+                <span class="choose-year">{{ currentYear}}年</span>
+                <span class="choose-month">{{ currentMonth }}月</span>
+            </li>
+            <li class="arrow" @click="pickNextMonth">❯</li>
+          </ul>
+        </div>
+    
+        <!-- 周显示日期 -->
+        <div class="month" v-show="!isMonth">
+          <ul>
+            <li class="arrow" @click="pickWeekPre">❮</li>
+            <li class="year-month">
+                <span class="choose-year">{{ currentYear}}年</span>
+                <span class="choose-month">{{ currentMonth }}月</span>
+            </li>
+            <li class="arrow" @click="pickWeekNext">❯</li>
+          </ul>
+        </div>
+    
+          <!-- 星期 -->
+        <ul class="weekdays">
+          <li>日</li>
+          <li>一</li>
+          <li>二</li>
+          <li>三</li>
+          <li>四</li>
+          <li>五</li>
+          <li>六</li>
+        </ul>
+    
+          <!-- 月份格式显示日期 -->
+        <ul v-show="isMonth" class="days">
+          <li v-for="(item, index) in days" :key="index" @click="pickDate(item.date)">
+            <div :class="item.isToday? 'active': ''" :style="item.isDayAfter? 'color:white; background-color: black': ''">
+              <span>
+                {{ item.date.getDate() }}
+              </span>
+            </div>
+          </li>
+        </ul>
+    
+        <!-- 周格式的日期显示 -->
+        <ul v-show="!isMonth" class="weeks">
+          <li v-for="(item, index) in weekDays" :key="index" @click="pickDate(item.date)">
+            <div :class="item.isToday? 'active': ''" :style="item.isDayAfter? 'color:white; background-color: black': ''">
+              <span>
+                {{ item.date.getDate() }}
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
