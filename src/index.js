@@ -1,5 +1,7 @@
 import { formatDate } from './utils';
 
+import './asset/cal.css';
+
 const options = {
     currentDay: 1, //
     currentMonth: 1, // 月
@@ -23,16 +25,10 @@ function Mouth(date) {
     this.currentMonth = now.getMonth() + 1;
     this.currentDay = now.getDate();
 
-    const currentFormat = formatDate(
-        this.currentYear,
-        this.currentMonth,
-        this.currentDay
-    );
     // 获取上一个月的开始日期
-    const startDay = new Date(formatDate(now.getFullYear(), now.getMonth(), 1));
-
+    let startDay;
+    startDay = new Date(formatDate(now.getFullYear(), now.getMonth(), 1));
     startDay.setDate(0);
-
     let endDay;
     endDay = new Date(formatDate(now.getFullYear(), now.getMonth() + 1, 1));
 
@@ -97,6 +93,24 @@ function Mouth(date) {
 
         this.days.push(dayobject);
     }
+
+    let article = document.getElementById('calId');
+
+    if (article || article === null) {
+        return '404';
+    }
+
+    article.innerHTML = '';
+    article.innerHTML = `${headerFun(this.currentYear, this.currentMonth)}${wek()}${tempt(this.days)}`;
+    document.body.appendChild(article);
+    document.getElementById('pickNextMonth').addEventListener('click',()=>{
+        // console.log(1111)
+        this.pickNextMonth();
+    }, false);
+
+    document.getElementById('pickPreMonth').addEventListener('click',()=>{
+        this.pickPreMonth();
+    }, false);
 }
 
 
@@ -132,23 +146,23 @@ function tempt(params) {
     return str;
 }
 
-function headerFun() {
+function headerFun(currentYear, currentMonth) {
     let str = `
-    <div class="month" v-show="">
+    <div class="month">
         <ul>
-        <li id="pickPreMonth" class="arrow">❮</li>
-        <li class="year-month">
-            <span class="choose-year">{{ currentYear}}年</span>
-            <span class="choose-month">{{ currentMonth }}月</span>
-        </li>
-        <li id="pickNextMonth" class="arrow">❯</li>
+            <li id="pickPreMonth" class="arrow">❮</li>
+            <li class="year-month">
+                <span class="choose-year"> ${currentYear}年</span>
+                <span class="choose-month">${currentMonth}月</span>
+            </li>
+            <li id="pickNextMonth" class="arrow">❯</li>
         </ul>
     </div>
     `;
     return str;
 }
 
-function wek(params) {
+function wek() {
     return `
     <!-- 星期 -->
     <ul class="weekdays">
@@ -160,24 +174,27 @@ function wek(params) {
       <li>五</li>
       <li>六</li>
     </ul>
-    `   
+    `;
 }
 
 
-let t = new Mouth();
+new Mouth();
 
-let aticle = document.createElement('article');
-aticle.innerHTML = `${headerFun()}${wek()}${tempt(t.days)}`;
+module.exports = new Mouth();
 
-console.log(t.days);
+// let article = document.createElement('article');
+// article.innerHTML = `${headerFun(t.currentYear, t.currentMonth)}${wek()}${tempt(t.days)}`;
 
-document.body.appendChild(aticle);
+// console.log(t.days);
 
-document.getElementById('pickNextMonth').addEventListener('click',()=>{
-    t.pickNextMonth();
-}, false);
+// document.body.appendChild(article);
 
-document.getElementById('pickPreMonth').addEventListener('click',()=>{
-    t.pickPreMonth();
-}, false);
+// document.getElementById('pickNextMonth').addEventListener('click',()=>{
+//     console.log(1111)
+//     t.pickNextMonth();
+// }, false);
+//
+// document.getElementById('pickPreMonth').addEventListener('click',()=>{
+//     t.pickPreMonth();
+// }, false);
 

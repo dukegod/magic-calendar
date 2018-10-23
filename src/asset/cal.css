@@ -10,6 +10,12 @@
     height: 335px;
     margin-left: 0.5%;
   }
+
+#pickPreMonth,
+#pickNextMonth{
+    cursor: pointer;
+}
+
   
   .month {
     width: 92%;

@@ -32,7 +32,7 @@
 ## 使用者指南
 通过npm下载安装代码
 
-```bash
+<!-- ```bash
 $ npm install --save magic-calendar
 ```
 
@@ -54,7 +54,7 @@ import base from 'magic-calendar';
 requirejs(['node_modules/magic-calendar/dist/index.aio.js'], function (base) {
     // xxx
 })
-```
+``` -->
 
 如果你是浏览器环境
 

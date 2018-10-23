@@ -13,5 +13,14 @@ var banner =
  */
 `;
 
-exports.name = name;
-exports.banner = banner;
+// export {
+//     banner,
+//     name
+// };
+
+
+
+module.exports = {
+    banner,
+    name
+}; 

@@ -1,10 +1,12 @@
 // rollup.config.js
+import babel from 'rollup-plugin-babel';
+import nodeResolve from 'rollup-plugin-node-resolve';
+import commonjs from 'rollup-plugin-commonjs';
+import postcss from'rollup-plugin-postcss';
+import cssnext from 'postcss-cssnext';
+import cssnano from 'cssnano';
 
-var babel = require('rollup-plugin-babel');
-var nodeResolve = require('rollup-plugin-node-resolve');
-var commonjs = require('rollup-plugin-commonjs');
-
-var common = require('./rollup.js');
+const common = require('./rollup.js');
 
 export default {
     input: 'src/index.js',
@@ -17,6 +19,13 @@ export default {
         banner: common.banner,
     },
     plugins: [
+        postcss({
+            plugins: [
+                cssnext({ warnForDuplicates: false }),
+                cssnano()
+            ],
+            extensions: ['.css']
+        }),
         nodeResolve({
             main: true
         }),
